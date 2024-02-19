@@ -229,21 +229,18 @@
 
     //////////ADD NEW STYLES///////////////////////////
     var newStyles = (`
-		.new-hr-line {
+		.DELMSGS_new-hr-line {
 		  border: none;
-		  border-top:
-		  2px solid silver;
+		  border-top: 2px solid silver;
         }
-        .delmsgborder {
-          border-top-style: solid;
-          border-top-color: silver;
-          border-top-width: 1px;
+        .DELMSGS_delmsgborder {
+          border-top: 1px solid; silver;
         }
-        .right-onhover-btn {
-          right:0px;
+        .DELMSGS_right-onhover-btn {
+          right: 0;
           cursor: pointer;
         }
-        .right-onhover-btn:hover {
+        .DELMSGS_right-onhover-btn:hover {
           font-weight: bolder;
         }
     `);
@@ -259,28 +256,28 @@
 
 
     var last_channel = ''; // Remembers last switched channel
-    var msgs_underline = '<hr class="new-hr-line">'; // Lines after messages in deleted messaged list
+    var msgs_underline = '<hr class="DELMSGS_new-hr-line">'; // Lines after messages in deleted messaged list
     var delmsgs_count = 0;
     var delmsgs_saved_str = ' messages';
 
     var observer, observing = false;
 
     var buttonHtml = (`
-		<div id="savedeletedbtn" class="iconWrapper-2awDjA" tabindex="0" role="button" aria-label="Save Deleted" title="Saved Deleted Messages">
+		<div id="DELMSGS_savedeletedbtn" tabindex="0" role="button" aria-label="Save Deleted Messages" title="Saved Deleted Messages">
 			<svg aria-hidden="false" width="24" height="24" viewBox="0 0 24 24">
 				<path fill="currentColor" d="M16.4597 7.6932H.7597C.3545 7.6932 0 8.0477 0 8.4529V20.3545c0 1.4181 1.1142 2.5323 2.5323 2.5323H14.6872c1.4181 0 2.5323-1.1142 2.5323-2.5323V8.4529C17.2194 8.0477 16.8649 7.6932 16.4597 7.6932ZM8.6097 20.861v-2.0258c1.6713 0 3.0387-1.3674 3.0387-3.0387 0-1.6713-1.3674-3.0387-3.0387-3.0387-.8103 0-1.57.3545-2.1271.9116l1.2155 1.2155c.1519.1519.0506.4558-.2026.4558h-3.6971c-.1519 0-.2532-.1013-.2532-.2532v-3.6971c0-.2026.2532-.3545.4558-.2026l1.0636 1.0636c.9623-.9116 2.2284-1.4687 3.5958-1.4687 2.7855 0 5.0645 2.279 5.0645 5.0645 0 2.7855-2.3297 5.0139-5.1152 5.0139zM18.2879 4.873 12.973 4.0664 13.2311 2.3656C13.3731 1.4302 12.7239.5487 11.7884.4067L9.2373.0195C8.3019-.1225 7.4203.5267 7.2784 1.4621L7.0203 3.1629 1.7053 2.3563C1.3652 2.3046 1.0224 2.5571.9707 2.8972L.7771 4.1728C.7255 4.513.978 4.8558 1.3181 4.9074L17.9007 7.4242C18.2408 7.4758 18.5836 7.2233 18.6353 6.8832L18.8289 5.6076C18.8805 5.2674 18.628 4.9246 18.2879 4.873ZM11.2722 3.8082 8.721 3.421 8.9146 2.1455C8.9533 1.8903 9.1492 1.7461 9.4043 1.7848l1.7008.2581c.2551.0387.3994.2346.3607.4897z"></path>
 			</svg>
 			<progress style="display:none;"></progress>
 		</div>`);
 
-    var savedeletedTemplate = (`<div id="savedeleted" style=" resize: both; overflow-y:hidden;overflow-x:hidden; width: 400px; height: 350px;  position: fixed; z-index: 999;background-color: #36393F;  border: 2px solid darkgray; display: none;" >
-		 <div id="DELMSGS_CLASSDIV" style="justify-content: center; position: absolute; "   class="scroller-kQBbkU auto-2K3UW5  scrollerContent-2SW0kQ  managedReactiveScroller-1LjJZ5  " >
-         <div id="DELMSGS_HEADER" style="top: 35%; text-align: center; color: grey; ">Deleted messages count.</div>
-		 <ol id="DELMSGS_OLMSGLIST" style="min-height:0; max-height: 0;" aria-label="DelMsgsOL" role="list" data-list-id="chat-messages1" tabindex="0">
+    var savedeletedTemplate = (`<div id="DELMSGS_savedeleted" style="resize: both; overflow: hidden; width: 400px; height: 350px; position: fixed; z-index: 999; background-color: #36393F; border: 2px solid darkgray; display: none;">
+		 <div id="DELMSGS_CLASSDIV" style="justify-content: center; position: absolute;" class="scroller-kQBbkU auto-2K3UW5 scrollerContent-2SW0kQ managedReactiveScroller-1LjJZ5">
+         <div id="DELMSGS_HEADER" style="top: 35%; text-align: center; color: grey;">Deleted messages count.</div>
+		 <ol id="DELMSGS_OLMSGLIST" style="min-height: 0; max-height: 0;" aria-label="Deleted Messages List" role="list" data-list-id="chat-messages1" tabindex="0">
 		 </ol></div>
-			 <div id="DELMSGS_BORDER" class="header" style="background-color: darkgray; position:absolute; top:0px; width: 100%; text-align: center;" >DELETED MESSAGES</div>
-             <div id="savedeletedCloseBtn" class="right-onhover-btn" style=" background-color: darkgray; position:absolute; top: 0px;" >X</div>
-             <div class="resizer" style=" background-color: darkgray; position:absolute; bottom: 0px; right: 0px; cursor: nwse-resize; opacity: 0.1;">//</div>
+			 <div id="DELMSGS_BORDER" style="background-color: darkgray; position: absolute; top: 0; width: 100%; text-align: center;">DELETED MESSAGES</div>
+             <div id="DELMSGS_savedeletedCloseBtn" class="DELMSGS_right-onhover-btn" style="background-color: darkgray; position: absolute; top: 0;">X</div>
+             <div class="resizer" style="background-color: darkgray; position: absolute; bottom: 0; right: 0; cursor: nwse-resize; opacity: 0.1;">//</div>
 		</div>`);
 
     var prev_ele = false;
@@ -394,20 +391,20 @@
 
     function check(mutations) { // checks DOM mutations, fires when mouse over msg and new msg, even if scroll in somewhere up
         check_channel_change();
-        let delmsgs_scroll = savedeletedWindow.querySelector('[id*="DELMSGS_CLASSDIV"]');
-        let delmsglist = savedeletedWindow.querySelector('[id*="DELMSGS_OLMSGLIST"]');
+        let delmsgs_scroll = savedeletedWindow.querySelector('#DELMSGS_CLASSDIV');
+        let delmsglist = savedeletedWindow.querySelector('#DELMSGS_OLMSGLIST');
 
-        let scroll_elem = document.body.querySelector('[class*="scroller-kQBbkU"]');
+        let scroll_elem = document.body.querySelector('#DELMSGS_CLASSDIV');
 
         mutations.forEach(function (mutation) { // iterate all mutations
             mutation.removedNodes.forEach(function (removed_node) {
 
-                let check_old_msgs = document.body.querySelector('[class*="jumpToPresentBar-"]');
+                let check_old_msgs = document.body.querySelector('[class^="jumpToPresentBar"]');
                 if (check_old_msgs) {
                     return; // Skips adding new deleted msgs when scrolling old messages
                 }
 
-                let scroll_elem = document.body.querySelector('[class*="scroller-kQBbkU"]');
+                let scroll_elem = document.body.querySelector('[id*="DELMSGS_CLASSDIV"]');
                 if (scroll_elem && scroll_elem.scrollHeight > 7000 && scroll_elem.scrollTop) {
                     let diff_scroll = 1;
                     diff_scroll = scroll_elem.scrollHeight / scroll_elem.scrollTop;
@@ -416,7 +413,7 @@
                     }
                 }
 
-                if ((removed_node.tagName === 'LI' || removed_node.tagName === 'DIV') && !removed_node.querySelector('[class*="isSending-"]') && (removed_node.querySelector('[class^="markup-"]'))) {
+                if ((removed_node.tagName === 'LI' || removed_node.tagName === 'DIV') && !removed_node.querySelector('[class^="isSending"]') && (removed_node.querySelector('[class^="markup"]'))) {
 
                     // because we allow divs, we need to filter out divs that are not just chat deletes
                     if (!isChatDelete(removed_node)) {
@@ -465,7 +462,7 @@
 
                     if (delmsglist) {
                         let id_curtimestamp = 'delmsg' + Date.now();
-                        const contentElements = removed_node.querySelectorAll('[id*="message-content-"]');
+                        const contentElements = removed_node.querySelectorAll('[id^="message-content-"]');
                         let new_delnode = [...contentElements].find(el => !el.className.includes("repliedTextContent"));
                         let delnode_imgs = removed_node.querySelector('[id*="message-accessories-"]'); //if message has images and other accessories
                         let msg_time_node = removed_node.querySelector('[id*="message-timestamp-"]');
@@ -474,9 +471,9 @@
                         const mregex = /^20(\d{2})-(\d{2})-(\d{2})T(.+):.+Z/i;
                         delmsg_time = msg_time_text.replace(mregex, '$4 $3/$2/$1');
                         /// ADD NEW ITEM TO DELMSGS LIST /////////////
-                        let new_html = '<div id="' + id_curtimestamp + '" class="right-onhover-btn" style="position:absolute;">X</div> <b>' + delmsg_usrname + '</b> (' + delmsg_time + ') <br /> ' + new_delnode.innerHTML + delnode_imgs.outerHTML;// + msgs_underline;
+                        let new_html = '<div id="' + id_curtimestamp + '" class="DELMSGS_right-onhover-btn" style="position: absolute;">X</div> <b>' + delmsg_usrname + '</b> (' + delmsg_time + ') <br /> ' + new_delnode.innerHTML + delnode_imgs.outerHTML;// + msgs_underline;
                         new_delnode.innerHTML = extra_change_message(new_html);
-                        new_delnode.classList.add("delmsgborder");
+                        new_delnode.classList.add("DELMSGS_delmsgborder");
                         delmsglist.appendChild(new_delnode);
                         //delmsglist.innerHTML = delmsglist.innerHTML + msgs_underline;
                         let cur_elem = delmsglist.querySelector('[id*="' + id_curtimestamp + '"]');
@@ -531,9 +528,9 @@
     function init(observerInit) {
         savedeletedWindow = createElm(savedeletedTemplate);
         document.body.appendChild(savedeletedWindow);
-        new Drag(savedeletedWindow, savedeletedWindow.querySelector('.header'), { mode: 'move' });
+        new Drag(savedeletedWindow, savedeletedWindow.querySelector('#DELMSGS_BORDER'), { mode: 'move' });
         new Drag(savedeletedWindow, savedeletedWindow.querySelector('.resizer'), { mode: 'resize' });
-        savedeletedWindow.querySelector("#savedeletedCloseBtn").onclick = toggleWindow;
+        savedeletedWindow.querySelector("#DELMSGS_savedeletedCloseBtn").onclick = toggleWindow;
 
 
         observerInit = {
